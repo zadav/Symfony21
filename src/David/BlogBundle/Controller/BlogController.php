@@ -9,6 +9,8 @@ use David\BlogBundle\Entity\Article;
 use David\BlogBundle\Entity\Image;
 use David\BlogBundle\Entity\Commentaire;
 use David\BlogBundle\Entity\Categorie;
+use David\BlogBundle\Form\ArticleType;
+
 
 
 class BlogController extends Controller{
@@ -78,8 +80,11 @@ class BlogController extends Controller{
         // Cette date sera donc pré-affichée dans le formulaire, cela facilite le travail de l'utilisateur.
         $article->setDate(new \Datetime());
 
-    $article->setTitre("Titre par défaut");
+    	$article->setTitre("Titre par défaut");
 
+    	$form = $this->createForm(new ArticleType,$article);
+    	
+    	/*
         //On crée le FormBuilder grace à la méthode du contrôleur.
         $formBuilder = $this->createFormBuilder($article);
 
@@ -93,7 +98,9 @@ class BlogController extends Controller{
 
         //A partir du FormBuilder on génère le formulaire
         $form = $formBuilder->getForm();
-
+		
+		*/
+		
         //On récupère la requete
         $request = $this->get('request');
 
@@ -121,7 +128,8 @@ class BlogController extends Controller{
         }
 
         // Si on n'est pas en POST, alors on affiche le formulaire.
-        return $this->render('DavidBlogBundle:Blog:ajouter.html.twig',array('form' => $form->createView()));
+        return $this->render('DavidBlogBundle:Blog:ajouter.html.twig',
+        		array('form' => $form->createView()));
         
 	}
 	
